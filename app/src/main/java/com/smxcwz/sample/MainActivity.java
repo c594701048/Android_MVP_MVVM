@@ -3,11 +3,11 @@ package com.smxcwz.sample;
 import android.os.Bundle;
 import android.view.View;
 
-import com.smxcwz.frame.base.FrameBaseActivity;
+import com.smxcwz.frame.base.BaseFrameActivity;
 import com.smxcwz.frame.eventbus.EventCenter;
 import com.smxcwz.frame.netstatus.NetUtils;
 
-public class MainActivity extends FrameBaseActivity {
+public class MainActivity extends BaseFrameActivity {
 
 	@Override
 	protected void getBundleExtras(Bundle extras) {

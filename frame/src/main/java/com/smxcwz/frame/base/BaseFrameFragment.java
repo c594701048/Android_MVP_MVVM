@@ -8,6 +8,6 @@ import android.support.v4.app.Fragment;
  * Date:    2018/5/22
  * Description:
  */
-public abstract class FrameBaseFragment extends Fragment {
+public abstract class BaseFrameFragment extends Fragment {
 
 }

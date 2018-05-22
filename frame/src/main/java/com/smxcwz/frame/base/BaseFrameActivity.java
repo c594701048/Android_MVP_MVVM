@@ -1,26 +1,18 @@
 package com.smxcwz.frame.base;
 
-import android.content.Context;
-import android.content.Intent;
-import android.databinding.DataBindingUtil;
-import android.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.smxcwz.frame.R;
 import com.smxcwz.frame.eventbus.EventCenter;
 import com.smxcwz.frame.loading.VaryViewHelperController;
 import com.smxcwz.frame.netstatus.NetChangeObserver;
 import com.smxcwz.frame.netstatus.NetStateReceiver;
 import com.smxcwz.frame.netstatus.NetUtils;
-import com.smxcwz.frame.utils.CommonUtils;
 
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
@@ -31,30 +23,7 @@ import de.greenrobot.event.EventBus;
  * Date:    2018/5/22
  * Description:
  */
-public abstract class FrameBaseActivity extends AppCompatActivity {
-
-
-	/**
-	 * Log tag
-	 */
-	protected static String TAG_LOG = null;
-
-	/**
-	 * Screen information
-	 */
-	protected int mScreenWidth = 0;
-	protected int mScreenHeight = 0;
-	protected float mScreenDensity = 0.0f;
-
-	/**
-	 * context
-	 */
-	protected Context mContext = null;
-	/**
-	 *
-	 */
-
-	protected ViewDataBinding mViewDataBinding = null;
+public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 
 	/**
 	 * network status
@@ -66,69 +35,14 @@ public abstract class FrameBaseActivity extends AppCompatActivity {
 	 */
 	private VaryViewHelperController mVaryViewHelperController = null;
 
-	/**
-	 * overridePendingTransition mode
-	 */
-	public enum TransitionMode {
-		LEFT, RIGHT, TOP, BOTTOM, SCALE, FADE
-	}
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		if (toggleOverridePendingTransition()) {
-			switch (getOverridePendingTransitionMode()) {
-				case LEFT:
-					overridePendingTransition(R.anim.left_in, R.anim.left_out);
-					break;
-				case RIGHT:
-					overridePendingTransition(R.anim.right_in, R.anim.right_out);
-					break;
-				case TOP:
-					overridePendingTransition(R.anim.top_in, R.anim.top_out);
-					break;
-				case BOTTOM:
-					overridePendingTransition(R.anim.bottom_in, R.anim.bottom_out);
-					break;
-				case SCALE:
-					overridePendingTransition(R.anim.scale_in, R.anim.scale_out);
-					break;
-				case FADE:
-					overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-					break;
-			}
-		}
 		super.onCreate(savedInstanceState);
 		// base setup
-		Bundle extras = getIntent().getExtras();
-		if (null != extras) {
-			getBundleExtras(extras);
-		}
-
 		if (isBindEventBusHere()) {
 			EventBus.getDefault().register(this);
 		}
-//		SmartBarUtils.hide(getWindow().getDecorView());
-		setTranslucentStatus(isApplyStatusBarTranslucency());
-
-		mContext = this;
-		TAG_LOG = this.getClass().getSimpleName();
 		BaseAppManager.getInstance().addActivity(this);
-
-		DisplayMetrics displayMetrics = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
-		mScreenDensity = displayMetrics.density;
-		mScreenHeight = displayMetrics.heightPixels;
-		mScreenWidth = displayMetrics.widthPixels;
-
-		if (getContentViewLayoutID() != 0) {
-			mViewDataBinding = DataBindingUtil.setContentView(
-					this, getContentViewLayoutID());
-//			setContentView(getContentViewLayoutID());
-		} else {
-			throw new IllegalArgumentException("You must return a right contentView layout resource Id");
-		}
-
 		mNetChangeObserver = new NetChangeObserver() {
 			@Override
 			public void onNetConnected(NetUtils.NetType type) {
@@ -144,7 +58,6 @@ public abstract class FrameBaseActivity extends AppCompatActivity {
 		};
 		//注册了一个广播 防止网络变化对 对进度条的影响
 		NetStateReceiver.registerObserver(mNetChangeObserver);
-
 		initViewsAndEvents();
 	}
 
@@ -167,34 +80,6 @@ public abstract class FrameBaseActivity extends AppCompatActivity {
 	}
 
 	@Override
-	public void finish() {
-		super.finish();
-		BaseAppManager.getInstance().removeActivity(this);
-		if (toggleOverridePendingTransition()) {
-			switch (getOverridePendingTransitionMode()) {
-				case LEFT:
-					overridePendingTransition(R.anim.left_in, R.anim.left_out);
-					break;
-				case RIGHT:
-					overridePendingTransition(R.anim.right_in, R.anim.right_out);
-					break;
-				case TOP:
-					overridePendingTransition(R.anim.top_in, R.anim.top_out);
-					break;
-				case BOTTOM:
-					overridePendingTransition(R.anim.bottom_in, R.anim.bottom_out);
-					break;
-				case SCALE:
-					overridePendingTransition(R.anim.scale_in, R.anim.scale_out);
-					break;
-				case FADE:
-					overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-					break;
-			}
-		}
-	}
-
-	@Override
 	protected void onDestroy() {
 		super.onDestroy();
 		NetStateReceiver.removeRegisterObserver(mNetChangeObserver);
@@ -202,20 +87,6 @@ public abstract class FrameBaseActivity extends AppCompatActivity {
 			EventBus.getDefault().unregister(this);
 		}
 	}
-
-	/**
-	 * get bundle data
-	 *
-	 * @param extras
-	 */
-	protected abstract void getBundleExtras(Bundle extras);
-
-	/**
-	 * bind layout resource file
-	 *
-	 * @return id of layout resource
-	 */
-	protected abstract int getContentViewLayoutID();
 
 	/**
 	 * when event comming
@@ -257,106 +128,6 @@ public abstract class FrameBaseActivity extends AppCompatActivity {
 	 * @return
 	 */
 	protected abstract boolean isBindEventBusHere();
-
-	/**
-	 * toggle overridePendingTransition
-	 *
-	 * @return
-	 */
-	protected abstract boolean toggleOverridePendingTransition();
-
-	/**
-	 * get the overridePendingTransition mode
-	 */
-	protected abstract TransitionMode getOverridePendingTransitionMode();
-
-	/**
-	 * startActivity
-	 *
-	 * @param clazz
-	 */
-	protected void readyGo(Class<?> clazz) {
-		Intent intent = new Intent(this, clazz);
-		startActivity(intent);
-	}
-
-	/**
-	 * startActivity with bundle
-	 *
-	 * @param clazz
-	 * @param bundle
-	 */
-	protected void readyGo(Class<?> clazz, Bundle bundle) {
-		Intent intent = new Intent(this, clazz);
-		if (null != bundle) {
-			intent.putExtras(bundle);
-		}
-		startActivity(intent);
-	}
-
-	/**
-	 * startActivity then finish
-	 *
-	 * @param clazz
-	 */
-	protected void readyGoThenKill(Class<?> clazz) {
-		Intent intent = new Intent(this, clazz);
-		startActivity(intent);
-		finish();
-	}
-
-	/**
-	 * startActivity with bundle then finish
-	 *
-	 * @param clazz
-	 * @param bundle
-	 */
-	protected void readyGoThenKill(Class<?> clazz, Bundle bundle) {
-		Intent intent = new Intent(this, clazz);
-		if (null != bundle) {
-			intent.putExtras(bundle);
-		}
-		startActivity(intent);
-		finish();
-	}
-
-	/**
-	 * startActivityForResult
-	 *
-	 * @param clazz
-	 * @param requestCode
-	 */
-	protected void readyGoForResult(Class<?> clazz, int requestCode) {
-		Intent intent = new Intent(this, clazz);
-		startActivityForResult(intent, requestCode);
-	}
-
-	/**
-	 * startActivityForResult with bundle
-	 *
-	 * @param clazz
-	 * @param requestCode
-	 * @param bundle
-	 */
-	protected void readyGoForResult(Class<?> clazz, int requestCode, Bundle bundle) {
-		Intent intent = new Intent(this, clazz);
-		if (null != bundle) {
-			intent.putExtras(bundle);
-		}
-		startActivityForResult(intent, requestCode);
-	}
-
-	/**
-	 * show toast
-	 *
-	 * @param msg
-	 */
-	protected void showToast(String msg) {
-		//防止遮盖虚拟按键
-		if (null != msg && !CommonUtils.isEmpty(msg)) {
-//			Snackbar.make(getLoadingTargetView(), msg, Snackbar.LENGTH_SHORT).show();
-		}
-	}
 
 	/**
 	 * toggle show loading
