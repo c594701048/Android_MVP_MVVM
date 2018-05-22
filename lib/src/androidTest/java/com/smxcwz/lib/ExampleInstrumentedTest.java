@@ -1,4 +1,4 @@
-package com.smxcwz.androidlib;
+package com.smxcwz.lib;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

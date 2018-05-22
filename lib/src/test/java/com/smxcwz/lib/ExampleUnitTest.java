@@ -1,4 +1,4 @@
-package com.smxcwz.androidlib;
+package com.smxcwz.lib;
 
 import org.junit.Test;
 
