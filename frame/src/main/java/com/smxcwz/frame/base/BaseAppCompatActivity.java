@@ -75,10 +75,6 @@ abstract class BaseAppCompatActivity extends AppCompatActivity {
 			}
 		}
 		super.onCreate(savedInstanceState);
-		// base setup
-
-//		SmartBarUtils.hide(getWindow().getDecorView());
-//		setTranslucentStatus(isApplyStatusBarTranslucency());
 
 		mContext = this;
 		TAG_LOG = this.getClass().getSimpleName();
@@ -86,11 +82,10 @@ abstract class BaseAppCompatActivity extends AppCompatActivity {
 		if (getContentViewLayoutID() != 0) {
 			mViewDataBinding = DataBindingUtil.setContentView(
 					this, getContentViewLayoutID());
-//			setContentView(getContentViewLayoutID());
 		} else {
 			throw new IllegalArgumentException("You must return a right contentView layout resource Id");
 		}
-
+		//Screen param
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
@@ -98,12 +93,10 @@ abstract class BaseAppCompatActivity extends AppCompatActivity {
 		mScreenHeight = displayMetrics.heightPixels;
 		mScreenWidth = displayMetrics.widthPixels;
 
-
 		Bundle extras = getIntent().getExtras();
 		if (null != extras) {
 			getBundleExtras(extras);
 		}
-
 
 	}
 
@@ -112,7 +105,7 @@ abstract class BaseAppCompatActivity extends AppCompatActivity {
 	 *
 	 * @param clazz
 	 */
-	protected void readyGo(Class<?> clazz) {
+	protected void goToActivity(Class<?> clazz) {
 		Intent intent = new Intent(this, clazz);
 		startActivity(intent);
 	}
@@ -123,7 +116,7 @@ abstract class BaseAppCompatActivity extends AppCompatActivity {
 	 * @param clazz
 	 * @param bundle
 	 */
-	protected void readyGo(Class<?> clazz, Bundle bundle) {
+	protected void goToActivity(Class<?> clazz, Bundle bundle) {
 		Intent intent = new Intent(this, clazz);
 		if (null != bundle) {
 			intent.putExtras(bundle);
@@ -136,7 +129,7 @@ abstract class BaseAppCompatActivity extends AppCompatActivity {
 	 *
 	 * @param clazz
 	 */
-	protected void readyGoThenKill(Class<?> clazz) {
+	protected void goToActivityThenFinsh(Class<?> clazz) {
 		Intent intent = new Intent(this, clazz);
 		startActivity(intent);
 		finish();
@@ -148,7 +141,7 @@ abstract class BaseAppCompatActivity extends AppCompatActivity {
 	 * @param clazz
 	 * @param bundle
 	 */
-	protected void readyGoThenKill(Class<?> clazz, Bundle bundle) {
+	protected void goToActivityThenFinsh(Class<?> clazz, Bundle bundle) {
 		Intent intent = new Intent(this, clazz);
 		if (null != bundle) {
 			intent.putExtras(bundle);
@@ -163,7 +156,7 @@ abstract class BaseAppCompatActivity extends AppCompatActivity {
 	 * @param clazz
 	 * @param requestCode
 	 */
-	protected void readyGoForResult(Class<?> clazz, int requestCode) {
+	protected void goToActivityForResult(Class<?> clazz, int requestCode) {
 		Intent intent = new Intent(this, clazz);
 		startActivityForResult(intent, requestCode);
 	}
@@ -175,7 +168,7 @@ abstract class BaseAppCompatActivity extends AppCompatActivity {
 	 * @param requestCode
 	 * @param bundle
 	 */
-	protected void readyGoForResult(Class<?> clazz, int requestCode, Bundle bundle) {
+	protected void goToActivityForResult(Class<?> clazz, int requestCode, Bundle bundle) {
 		Intent intent = new Intent(this, clazz);
 		if (null != bundle) {
 			intent.putExtras(bundle);

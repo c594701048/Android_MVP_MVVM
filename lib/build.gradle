@@ -32,5 +32,6 @@ dependencies {
     api 'com.android.support.constraint:constraint-layout:1.1.0'
     api 'com.jakewharton:butterknife:8.4.0'
     api 'de.greenrobot:eventbus:2.4.0'
+    api 'com.gyf.barlibrary:barlibrary:2.3.0'//沉浸式
 
 }

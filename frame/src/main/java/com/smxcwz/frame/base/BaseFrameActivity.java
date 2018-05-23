@@ -3,11 +3,14 @@ package com.smxcwz.frame.base;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.gyf.barlibrary.ImmersionBar;
+import com.smxcwz.frame.R;
 import com.smxcwz.frame.eventbus.EventCenter;
 import com.smxcwz.frame.loading.VaryViewHelperController;
 import com.smxcwz.frame.netstatus.NetChangeObserver;
@@ -35,14 +38,20 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 	 */
 	private VaryViewHelperController mVaryViewHelperController = null;
 
+	private ImmersionBar mImmersionBar;
+	private boolean isFullScreen;
+	private Toolbar mToolbar;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// base setup
+
 		if (isBindEventBusHere()) {
 			EventBus.getDefault().register(this);
 		}
 		BaseAppManager.getInstance().addActivity(this);
+
 		mNetChangeObserver = new NetChangeObserver() {
 			@Override
 			public void onNetConnected(NetUtils.NetType type) {
@@ -58,7 +67,27 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 		};
 		//注册了一个广播 防止网络变化对 对进度条的影响
 		NetStateReceiver.registerObserver(mNetChangeObserver);
+		initImmersionBar();
+		//	init Toolbar
+		initToolbar();
 		initViewsAndEvents();
+	}
+
+	private void initImmersionBar() {
+		mImmersionBar = ImmersionBar.with(this);
+		mImmersionBar.statusBarColor("#262626")
+				.fitsSystemWindows(!isFullScreen)
+				.keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
+				.init();
+	}
+
+	private void initToolbar() {
+		mToolbar = ButterKnife.findById(this, R.id.common_toolbar);
+		if (null != mToolbar) {
+			setSupportActionBar(mToolbar);
+			getSupportActionBar().setHomeButtonEnabled(true);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
 	@Override
