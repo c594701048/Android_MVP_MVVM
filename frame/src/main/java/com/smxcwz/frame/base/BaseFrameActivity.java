@@ -5,10 +5,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -49,6 +48,8 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 
 	private ActionBar mActionBar;
 	private Toolbar mToolbar;
+	private TextView mTvMenuToolbar;
+	private TextView mTvTitleToolbar;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +81,7 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 		//	init Toolbar
 		initActionbar();
 		initViewsAndEvents();
+
 	}
 
 	private void initImmersionBar() {
@@ -92,6 +94,9 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 
 	private void initActionbar() {
 		mToolbar = ButterKnife.findById(this, R.id.common_toolbar);
+		mTvMenuToolbar = ButterKnife.findById(this, R.id.tv_menu_toolbar);
+		mTvTitleToolbar = ButterKnife.findById(this, R.id.tv_title_toolbar);
+
 		setSupportActionBar(mToolbar);
 		mActionBar = getSupportActionBar();
 		if (mActionBar != null) {
@@ -101,16 +106,20 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 	}
 
 	protected void setTitleVisibility(boolean isShow) {
-
+		mTvTitleToolbar.setVisibility(isShow ? View.VISIBLE : View.GONE);
 	}
 
 	protected void setTitleText(String tieltStr) {
+		mTvTitleToolbar.setText(tieltStr);
+	}
 
+	protected void setTitleText(@StringRes int resId) {
+		mTvTitleToolbar.setText(resId);
 	}
 
 	protected TextView getTitleView() {
 
-		return null;
+		return mTvTitleToolbar;
 	}
 
 	protected void setBackBtnVisibility(boolean isShow) {
@@ -132,25 +141,42 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 	}
 
 
-	protected boolean addMenu(MenuInflater menuInflater, Menu menu) {
-		return false;
+	protected void setMenuTextVisibility(boolean isShow) {
+		mTvMenuToolbar.setVisibility(isShow ? View.VISIBLE : View.GONE);
 	}
 
-	protected void setMenuIcon(@Nullable Drawable indicator) {
-		if (mToolbar != null) {
-			mToolbar.setOverflowIcon(indicator);
+	protected void setMenuText(@Nullable String text) {
+		mTvMenuToolbar.setText(text);
+	}
+
+	protected void setMenuText(@StringRes int resId) {
+		mTvMenuToolbar.setText(resId);
+	}
+
+	protected void setMenuIconVisibility(boolean isShow) {
+
+	}
+
+	protected void setMenuIcon(@Nullable Drawable left, @Nullable Drawable right) {
+		if (left != null) {
+			left.setBounds(0, 0, left.getMinimumWidth(), left.getMinimumHeight());
 		}
+		if (right != null) {
+			right.setBounds(0, 0, right.getIntrinsicWidth(), right.getMinimumHeight());
+		}
+		mTvMenuToolbar.setCompoundDrawables(left, null, right, null);
+	}
+
+	protected void setMenuIcon(@DrawableRes int resIdLeft, @DrawableRes int resIdRight) {
+		setMenuIcon(getResources().getDrawable(resIdLeft), getResources().getDrawable(resIdRight));
+	}
+
+	protected void setMenuIcon(@Nullable Drawable left) {
+		setMenuIcon(left, null);
 	}
 
 	protected void setMenuIcon(@DrawableRes int resId) {
 		setMenuIcon(getResources().getDrawable(resId));
-	}
-
-	//如果有Menu,创建完后,系统会自动添加到ToolBar上
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		return addMenu(getMenuInflater(), menu);
 	}
 
 
