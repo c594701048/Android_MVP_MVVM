@@ -1,4 +1,4 @@
-package com.smxcwz.lib;
+package com.smxcwz.baselib;
 
 import org.junit.Test;
 

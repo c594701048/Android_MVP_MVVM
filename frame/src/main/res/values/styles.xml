@@ -23,18 +23,18 @@
         <item name="android:windowIsTranslucent">false</item>
     </style>
 
-    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <!--<item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>-->
 
         <item name="colorPrimary">@color/sr_color_primary</item>
         <item name="colorPrimaryDark">@color/sr_color_primary_dark</item>
         <item name="colorAccent">@color/sr_color_primary_dark</item>
-
+<!--
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowContentOverlay">@android:color/transparent</item>
-        <item name="android:windowBackground">@color/sr_window_background</item>
+        <item name="android:windowBackground">@color/sr_window_background</item>-->
     </style>
 
     <style name="Theme.SmoothProgressBarDefaults" parent="Theme.AppCompat">
@@ -54,5 +54,15 @@
 
     <style name="SwipeBackLayout">
         <item name="edge_size">0dp</item>
+    </style>
+
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <!-- Api 21 -->
+        <item name="overlapAnchor">false</item>
+        <!-- 弹出层背景颜色 -->
+        <!--<item name="android:popupBackground">@color/action_bar_title_text_color</item>-->
+        <!-- 设置弹出菜单文字颜色 -->
+        <!--<item name="android:textColor">@color/message_text</item>-->
     </style>
 </resources>

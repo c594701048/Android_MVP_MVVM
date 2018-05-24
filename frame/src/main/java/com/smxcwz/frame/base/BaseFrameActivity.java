@@ -3,11 +3,17 @@ package com.smxcwz.frame.base;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.smxcwz.frame.R;
@@ -31,7 +37,7 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 	/**
 	 * network status
 	 */
-	protected NetChangeObserver mNetChangeObserver = null;
+	private NetChangeObserver mNetChangeObserver = null;
 
 	/**
 	 * loading view controller
@@ -40,6 +46,8 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 
 	private ImmersionBar mImmersionBar;
 	private boolean isFullScreen;
+
+	private ActionBar mActionBar;
 	private Toolbar mToolbar;
 
 	@Override
@@ -67,28 +75,84 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 		};
 		//注册了一个广播 防止网络变化对 对进度条的影响
 		NetStateReceiver.registerObserver(mNetChangeObserver);
+
 		initImmersionBar();
 		//	init Toolbar
-		initToolbar();
+		initActionbar();
 		initViewsAndEvents();
 	}
 
 	private void initImmersionBar() {
 		mImmersionBar = ImmersionBar.with(this);
-		mImmersionBar.statusBarColor("#262626")
+		mImmersionBar.statusBarColor(R.color.sr_color_primary_dark)
 				.fitsSystemWindows(!isFullScreen)
 				.keyboardEnable(true, WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
 				.init();
 	}
 
-	private void initToolbar() {
+	private void initActionbar() {
 		mToolbar = ButterKnife.findById(this, R.id.common_toolbar);
-		if (null != mToolbar) {
-			setSupportActionBar(mToolbar);
-			getSupportActionBar().setHomeButtonEnabled(true);
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		setSupportActionBar(mToolbar);
+		mActionBar = getSupportActionBar();
+		if (mActionBar != null) {
+			mActionBar.setDisplayHomeAsUpEnabled(true);
+			mActionBar.setDisplayShowTitleEnabled(false);
 		}
 	}
+
+	protected void setTitleVisibility(boolean isShow) {
+
+	}
+
+	protected void setTitleText(String tieltStr) {
+
+	}
+
+	protected TextView getTitleView() {
+
+		return null;
+	}
+
+	protected void setBackBtnVisibility(boolean isShow) {
+		if (mActionBar != null) {
+			mActionBar.setDisplayHomeAsUpEnabled(isShow);
+		}
+	}
+
+	protected void setBackBtnIcon(@Nullable Drawable indicator) {
+		if (mActionBar != null) {
+			mActionBar.setHomeAsUpIndicator(indicator);
+		}
+	}
+
+	protected void setBackBtnIcon(@DrawableRes int resId) {
+		if (mActionBar != null) {
+			mActionBar.setHomeAsUpIndicator(resId);
+		}
+	}
+
+
+	protected boolean addMenu(MenuInflater menuInflater, Menu menu) {
+		return false;
+	}
+
+	protected void setMenuIcon(@Nullable Drawable indicator) {
+		if (mToolbar != null) {
+			mToolbar.setOverflowIcon(indicator);
+		}
+	}
+
+	protected void setMenuIcon(@DrawableRes int resId) {
+		setMenuIcon(getResources().getDrawable(resId));
+	}
+
+	//如果有Menu,创建完后,系统会自动添加到ToolBar上
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		return addMenu(getMenuInflater(), menu);
+	}
+
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
