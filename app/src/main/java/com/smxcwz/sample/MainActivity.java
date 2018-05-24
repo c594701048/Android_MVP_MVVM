@@ -1,8 +1,6 @@
 package com.smxcwz.sample;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 
 import com.smxcwz.frame.eventbus.EventCenter;
@@ -34,14 +32,10 @@ public class MainActivity extends BaseActivity {
 	@Override
 	protected void initViewsAndEvents() {
 		setBackBtnIcon(R.mipmap.ic_launcher);
-		setMenuIcon(R.mipmap.ic_launcher);
+		setMenuIcon(R.mipmap.ic_launcher,R.mipmap.ic_launcher);
+		setMenuText("菜单");
 	}
 
-	@Override
-	protected boolean addMenu(MenuInflater menuInflater, Menu menu) {
-		menuInflater.inflate(R.menu.menu_main, menu);
-		return true;
-	}
 
 
 	@Override
