@@ -28,7 +28,7 @@ import de.greenrobot.event.EventBus;
  * Date:    2018/5/22
  * Description:
  */
-public abstract class BaseFrameActivity extends BaseAppCompatActivity {
+public abstract class BaseFrameActivity extends BaseAppCompatActivity implements View.OnClickListener {
 
 	/**
 	 * network status
@@ -92,6 +92,9 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 		mTvBaseLeft = ButterKnife.findById(this, R.id.tv_base_left);
 		mTvBaseRight = ButterKnife.findById(this, R.id.tv_base_right);
 		mTvBaseTitle = ButterKnife.findById(this, R.id.tv_base_title);
+		mTvBaseLeft.setOnClickListener(this);
+		mTvBaseRight.setOnClickListener(this);
+		mTvBaseTitle.setOnClickListener(this);
 	}
 
 	protected void setTitleVisibility(boolean isShow) {
@@ -113,7 +116,7 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 		if (right != null) {
 			right.setBounds(0, 0, right.getIntrinsicWidth(), right.getMinimumHeight());
 		}
-		mTvBaseLeft.setCompoundDrawables(left, null, right, null);
+		mTvBaseTitle.setCompoundDrawables(left, null, right, null);
 	}
 
 
@@ -164,6 +167,12 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 		mTvBaseLeft.setCompoundDrawables(left, null, right, null);
 	}
 
+	@Override
+	public void onClick(View v) {
+		if (v.getId() == R.id.tv_base_left) {
+			onBackPressed();
+		}
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -344,4 +353,6 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 			win.setAttributes(winParams);
 		}
 	}
+
+
 }
