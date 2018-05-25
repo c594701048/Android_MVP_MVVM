@@ -3,11 +3,8 @@ package com.smxcwz.frame.base;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -46,10 +43,9 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 	private ImmersionBar mImmersionBar;
 	private boolean isFullScreen;
 
-	private ActionBar mActionBar;
-	private Toolbar mToolbar;
-	private TextView mTvMenuToolbar;
-	private TextView mTvTitleToolbar;
+	private TextView mTvBaseLeft;
+	private TextView mTvBaseRight;
+	private TextView mTvBaseTitle;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,90 +89,79 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity {
 	}
 
 	private void initActionbar() {
-		mToolbar = ButterKnife.findById(this, R.id.common_toolbar);
-		mTvMenuToolbar = ButterKnife.findById(this, R.id.tv_menu_toolbar);
-		mTvTitleToolbar = ButterKnife.findById(this, R.id.tv_title_toolbar);
-
-		setSupportActionBar(mToolbar);
-		mActionBar = getSupportActionBar();
-		if (mActionBar != null) {
-			mActionBar.setDisplayHomeAsUpEnabled(true);
-			mActionBar.setDisplayShowTitleEnabled(false);
-		}
+		mTvBaseLeft = ButterKnife.findById(this, R.id.tv_base_left);
+		mTvBaseRight = ButterKnife.findById(this, R.id.tv_base_right);
+		mTvBaseTitle = ButterKnife.findById(this, R.id.tv_base_title);
 	}
 
 	protected void setTitleVisibility(boolean isShow) {
-		mTvTitleToolbar.setVisibility(isShow ? View.VISIBLE : View.GONE);
+		mTvBaseTitle.setVisibility(isShow ? View.VISIBLE : View.GONE);
 	}
 
 	protected void setTitleText(String tieltStr) {
-		mTvTitleToolbar.setText(tieltStr);
+		mTvBaseTitle.setText(tieltStr);
 	}
 
 	protected void setTitleText(@StringRes int resId) {
-		mTvTitleToolbar.setText(resId);
+		mTvBaseTitle.setText(resId);
 	}
 
-	protected TextView getTitleView() {
-
-		return mTvTitleToolbar;
-	}
-
-	protected void setBackBtnVisibility(boolean isShow) {
-		if (mActionBar != null) {
-			mActionBar.setDisplayHomeAsUpEnabled(isShow);
-		}
-	}
-
-	protected void setBackBtnIcon(@Nullable Drawable indicator) {
-		if (mActionBar != null) {
-			mActionBar.setHomeAsUpIndicator(indicator);
-		}
-	}
-
-	protected void setBackBtnIcon(@DrawableRes int resId) {
-		if (mActionBar != null) {
-			mActionBar.setHomeAsUpIndicator(resId);
-		}
-	}
-
-
-	protected void setMenuTextVisibility(boolean isShow) {
-		mTvMenuToolbar.setVisibility(isShow ? View.VISIBLE : View.GONE);
-	}
-
-	protected void setMenuText(@Nullable String text) {
-		mTvMenuToolbar.setText(text);
-	}
-
-	protected void setMenuText(@StringRes int resId) {
-		mTvMenuToolbar.setText(resId);
-	}
-
-	protected void setMenuIconVisibility(boolean isShow) {
-
-	}
-
-	protected void setMenuIcon(@Nullable Drawable left, @Nullable Drawable right) {
+	protected void setTitleIcon(@Nullable Drawable left, @Nullable Drawable right) {
 		if (left != null) {
 			left.setBounds(0, 0, left.getMinimumWidth(), left.getMinimumHeight());
 		}
 		if (right != null) {
 			right.setBounds(0, 0, right.getIntrinsicWidth(), right.getMinimumHeight());
 		}
-		mTvMenuToolbar.setCompoundDrawables(left, null, right, null);
+		mTvBaseLeft.setCompoundDrawables(left, null, right, null);
 	}
 
-	protected void setMenuIcon(@DrawableRes int resIdLeft, @DrawableRes int resIdRight) {
-		setMenuIcon(getResources().getDrawable(resIdLeft), getResources().getDrawable(resIdRight));
+
+	protected void setRightTextVisibility(boolean isShow) {
+		mTvBaseRight.setVisibility(isShow ? View.VISIBLE : View.GONE);
 	}
 
-	protected void setMenuIcon(@Nullable Drawable left) {
-		setMenuIcon(left, null);
+	protected void setRightText(@Nullable String text) {
+		mTvBaseRight.setText(text);
 	}
 
-	protected void setMenuIcon(@DrawableRes int resId) {
-		setMenuIcon(getResources().getDrawable(resId));
+	protected void setRightText(@StringRes int resId) {
+		mTvBaseRight.setText(resId);
+	}
+
+
+	protected void setRightIcon(@Nullable Drawable left, @Nullable Drawable right) {
+		if (left != null) {
+			left.setBounds(0, 0, left.getMinimumWidth(), left.getMinimumHeight());
+		}
+		if (right != null) {
+			right.setBounds(0, 0, right.getIntrinsicWidth(), right.getMinimumHeight());
+		}
+		mTvBaseRight.setCompoundDrawables(left, null, right, null);
+	}
+
+
+	protected void setLeftTextVisibility(boolean isShow) {
+		mTvBaseLeft.setVisibility(isShow ? View.VISIBLE : View.GONE);
+	}
+
+	protected void setLeftText(@Nullable String text) {
+		mTvBaseLeft.setText(text);
+	}
+
+	protected void setLeftText(@StringRes int resId) {
+		mTvBaseLeft.setText(resId);
+	}
+
+
+	protected void setLeftIcon(@Nullable Drawable left, @Nullable Drawable right) {
+		if (left != null) {
+			left.setBounds(0, 0, left.getMinimumWidth(), left.getMinimumHeight());
+		}
+		if (right != null) {
+			right.setBounds(0, 0, right.getIntrinsicWidth(), right.getMinimumHeight());
+		}
+		mTvBaseLeft.setCompoundDrawables(left, null, right, null);
 	}
 
 

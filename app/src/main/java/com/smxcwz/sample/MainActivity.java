@@ -31,11 +31,13 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected void initViewsAndEvents() {
-		setBackBtnIcon(R.mipmap.ic_launcher);
-		setMenuIcon(R.mipmap.ic_launcher,R.mipmap.ic_launcher);
-		setMenuText("菜单");
+		setTitleIcon(R.mipmap.ic_launcher);
+		setTitleText("title");
+		setLeftIcon(R.mipmap.ic_launcher);
+		setLeftText("left");
+		setRightIcon(R.mipmap.ic_launcher);
+		setRightText("right");
 	}
-
 
 
 	@Override

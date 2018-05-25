@@ -1,46 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.Toolbar
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/common_toolbar"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/colorPrimary"
+    android:maxHeight="?attr/actionBarSize"
     android:minHeight="?attr/actionBarSize"
-    app:popupTheme="@style/OverflowMenuStyle">
-
-    <TextView
-        android:id="@+id/tv_title_toolbar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:singleLine="true"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="20sp"/>
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <LinearLayout
-        android:id="@+id/ll_menu_toolbar"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_gravity="right"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="2"
+        android:gravity="left"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_base_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:text="left"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="3"
         android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/tv_menu_toolbar"
+            android:id="@+id/tv_base_title"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:ellipsize="middle"
             android:gravity="center"
             android:singleLine="true"
-            android:background="@color/black"
             android:textColor="@color/white"
-            android:textSize="20sp"/>
-
-
+            android:textSize="20sp"
+            tools:text="我是中间标题的文字"/>
     </LinearLayout>
 
-</android.support.v7.widget.Toolbar>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_weight="2"
+        android:gravity="right"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_base_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            tools:text="right"/>
+
+    </LinearLayout>
+</LinearLayout>
+
