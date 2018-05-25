@@ -3,6 +3,7 @@ package com.smxcwz.frame.base;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.view.MenuItem;
@@ -132,6 +133,41 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity implements
 		mTvBaseRight.setText(resId);
 	}
 
+	protected void setTitleIcon(@DrawableRes int resIdLeft, @DrawableRes int resIdRight) {
+		setTitleIcon(getResources().getDrawable(resIdLeft), getResources().getDrawable(resIdRight));
+	}
+
+	protected void setTitleIcon(@Nullable Drawable right) {
+		setTitleIcon(null, right);
+	}
+
+	protected void setTitleIcon(@DrawableRes int resId) {
+		setTitleIcon(getResources().getDrawable(resId));
+	}
+
+	protected void setRightIcon(@DrawableRes int resIdLeft, @DrawableRes int resIdRight) {
+		setRightIcon(getResources().getDrawable(resIdLeft), getResources().getDrawable(resIdRight));
+	}
+
+	protected void setRightIcon(@Nullable Drawable left) {
+		setRightIcon(left, null);
+	}
+
+	protected void setRightIcon(@DrawableRes int resId) {
+		setRightIcon(getResources().getDrawable(resId));
+	}
+
+	protected void setLeftIcon(@DrawableRes int resIdLeft, @DrawableRes int resIdRight) {
+		setLeftIcon(getResources().getDrawable(resIdLeft), getResources().getDrawable(resIdRight));
+	}
+
+	protected void setLeftIcon(@Nullable Drawable left) {
+		setLeftIcon(left, null);
+	}
+
+	protected void setLeftIcon(@DrawableRes int resId) {
+		setLeftIcon(getResources().getDrawable(resId));
+	}
 
 	protected void setRightIcon(@Nullable Drawable left, @Nullable Drawable right) {
 		if (left != null) {
@@ -142,7 +178,6 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity implements
 		}
 		mTvBaseRight.setCompoundDrawables(left, null, right, null);
 	}
-
 
 	protected void setLeftTextVisibility(boolean isShow) {
 		mTvBaseLeft.setVisibility(isShow ? View.VISIBLE : View.GONE);
@@ -155,7 +190,6 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity implements
 	protected void setLeftText(@StringRes int resId) {
 		mTvBaseLeft.setText(resId);
 	}
-
 
 	protected void setLeftIcon(@Nullable Drawable left, @Nullable Drawable right) {
 		if (left != null) {
