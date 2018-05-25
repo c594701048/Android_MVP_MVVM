@@ -20,16 +20,16 @@ package com.smxcwz.frame.swipeback;
  * @author Yrom
  */
 public interface SwipeBackActivityBase {
-    /**
-     * @return the SwipeBackLayout associated with this activity.
-     */
-    public abstract SwipeBackLayout getSwipeBackLayout();
+	/**
+	 * @return the SwipeBackLayout associated with this activity.
+	 */
+	SwipeBackLayout getSwipeBackLayout();
 
-    public abstract void setSwipeBackEnable(boolean enable);
+	void setSwipeBackEnable(boolean enable);
 
-    /**
-     * Scroll out contentView and finish the activity
-     */
-    public abstract void scrollToFinishActivity();
+	/**
+	 * Scroll out contentView and finish the activity
+	 */
+	void scrollToFinishActivity();
 
 }
