@@ -16,11 +16,7 @@
 
 package com.smxcwz.sample.base;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.Toolbar;
 
 import com.smxcwz.frame.base.BaseFrameActivity;
 
@@ -30,86 +26,40 @@ import com.smxcwz.frame.base.BaseFrameActivity;
  * Date:    15/7/21
  * Description:
  */
-public abstract class BaseActivity extends BaseFrameActivity  {
+public abstract class BaseActivity extends BaseFrameActivity {
 
-    protected Toolbar mToolbar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 
-    }
+	}
 
-    @Override
-    public void setContentView(int layoutResID) {
-        super.setContentView(layoutResID);
+	@Override
+	public void setContentView(int layoutResID) {
+		super.setContentView(layoutResID);
 //        mToolbar = ButterKnife.findById(this, R.id.common_toolbar);
 //        if (null != mToolbar) {
 //            setSupportActionBar(mToolbar);
 //            getSupportActionBar().setHomeButtonEnabled(true);
 //            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //        }
-    }
+	}
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+	@Override
+	protected void onResume() {
+		super.onResume();
 //        MobclickAgent.onResume(this);
-    }
+	}
 
-    @Override
-    protected void onPause() {
-        super.onPause();
+	@Override
+	protected void onPause() {
+		super.onPause();
 //        MobclickAgent.onPause(this);
-    }
+	}
 
 //    protected MyApplication getBaseApplication() {
 //        return (MyApplication) getApplication();
 //    }
-
-
-
-    protected void setTitleIcon(@DrawableRes int resIdLeft, @DrawableRes int resIdRight) {
-        setTitleIcon(getResources().getDrawable(resIdLeft), getResources().getDrawable(resIdRight));
-    }
-
-    protected void setTitleIcon(@Nullable Drawable right) {
-        setTitleIcon(null, right);
-    }
-
-    protected void setTitleIcon(@DrawableRes int resId) {
-        setTitleIcon(getResources().getDrawable(resId));
-    }
-
-
-    protected void setRightIcon(@DrawableRes int resIdLeft, @DrawableRes int resIdRight) {
-        setRightIcon(getResources().getDrawable(resIdLeft), getResources().getDrawable(resIdRight));
-    }
-
-    protected void setRightIcon(@Nullable Drawable left) {
-        setRightIcon(left, null);
-    }
-
-    protected void setRightIcon(@DrawableRes int resId) {
-        setRightIcon(getResources().getDrawable(resId));
-    }
-
-
-
-    protected void setLeftIconVisibility(boolean isShow) {
-
-    }
-
-    protected void setLeftIcon(@DrawableRes int resIdLeft, @DrawableRes int resIdRight) {
-        setLeftIcon(getResources().getDrawable(resIdLeft), getResources().getDrawable(resIdRight));
-    }
-
-    protected void setLeftIcon(@Nullable Drawable left) {
-        setLeftIcon(left, null);
-    }
-
-    protected void setLeftIcon(@DrawableRes int resId) {
-        setLeftIcon(getResources().getDrawable(resId));
-    }
 
 }
