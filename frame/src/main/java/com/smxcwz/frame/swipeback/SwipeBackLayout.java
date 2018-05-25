@@ -29,7 +29,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 
-import com.github.obsessive.library.R;
+import com.smxcwz.frame.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,8 +149,9 @@ public class SwipeBackLayout extends FrameLayout {
                 R.style.SwipeBackLayout);
 
         int edgeSize = a.getDimensionPixelSize(R.styleable.SwipeBackLayout_edge_size, -1);
-        if (edgeSize > 0)
+        if (edgeSize > 0) {
             setEdgeSize(edgeSize);
+        }
         int mode = EDGE_FLAGS[a.getInt(R.styleable.SwipeBackLayout_edge_flag, 0)];
         setEdgeTrackingEnabled(mode);
 
@@ -188,9 +189,9 @@ public class SwipeBackLayout extends FrameLayout {
     /**
      * Enable edge tracking for the selected edges of the parent view. The
      * callback's
-     * {@link com.github.obsessive.library.swipeback.ViewDragHelper.Callback#onEdgeTouched(int, int)}
+     * {@link com.smxcwz.frame.swipeback.ViewDragHelper.Callback#onEdgeTouched(int, int)}
      * and
-     * {@link com.github.obsessive.library.swipeback.ViewDragHelper.Callback#onEdgeDragStarted(int, int)}
+     * {@link com.smxcwz.frame.swipeback.ViewDragHelper.Callback#onEdgeDragStarted(int, int)}
      * methods will only be invoked for edges for which edge tracking has been
      * enabled.
      *
@@ -352,10 +353,11 @@ public class SwipeBackLayout extends FrameLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         mInLayout = true;
-        if (mContentView != null)
+        if (mContentView != null) {
             mContentView.layout(mContentLeft, mContentTop,
                     mContentLeft + mContentView.getMeasuredWidth(),
                     mContentTop + mContentView.getMeasuredHeight());
+        }
         mInLayout = false;
     }
 
@@ -481,8 +483,9 @@ public class SwipeBackLayout extends FrameLayout {
             }
 
             if (mScrollPercent >= 1) {
-                if (!mActivity.isFinishing())
+                if (!mActivity.isFinishing()) {
                     mActivity.finish();
+                }
             }
         }
 
