@@ -5,9 +5,9 @@ import android.view.View;
 
 import com.smxcwz.frame.eventbus.EventCenter;
 import com.smxcwz.frame.netstatus.NetUtils;
-import com.smxcwz.sample.base.BaseActivity;
+import com.smxcwz.sample.base.BaseSwipeBackActivity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseSwipeBackActivity {
 
 	@Override
 	protected void getBundleExtras(Bundle extras) {
@@ -37,8 +37,13 @@ public class MainActivity extends BaseActivity {
 		setLeftText("left");
 //		setRightIcon(R.mipmap.ic_launcher);
 //		setRightText("right");
+
 	}
 
+	public void go(View v) {
+		super.onClick(v);
+		goToActivity(MainActivity.class);
+	}
 
 	@Override
 	protected void onNetworkConnected(NetUtils.NetType type) {
