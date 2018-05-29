@@ -383,7 +383,8 @@ public abstract class BaseFrameActivity extends BaseAppCompatActivity implements
 	@Override
 	public void onClick(View v) {
 		if (v.getId() == R.id.tv_base_left) {
-			onBackPressed();
+//			onBackPressed();
+			onBackPressedSupport();
 		}
 	}
 
